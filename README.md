@@ -5,112 +5,90 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-009688)
 ![Gemini](https://img.shields.io/badge/AI-Gemini%202.0%20Flash-8E75B2)
 
-A robust, multi-agent AI system designed to generate validated educational content. It employs a **Generator-Reviewer-Refiner** pipeline to ensure high-quality, age-appropriate material for students.
+## Overview
 
-[**🚀 Live Demo**](https://hiring-assigment-eklavya.vercel.app/)
+The AI Assessment Generator is a multi-agent system engineered to produce validated educational content. It utilizes a **Generator-Reviewer-Refiner** architectural pattern to ensure output quality, accuracy, and age-appropriateness. The system leverages the Google Gemini 2.0 Flash model for high-speed inference and reasoning.
 
----
+[**Live Application**](https://hiring-assigment-eklavya.vercel.app/)
 
-## 🌟 Key Features
+## System Architecture
 
-- **Multi-Agent Architecture**:
-    - **Generator Agent**: Creates initial content and MCQs based on grade and topic.
-    - **Reviewer Agent**: Critiques the content for accuracy, age-appropriateness, and clarity.
-    - **Refinement Loop**: Automatically improves content if the Reviewer flags issues.
-- **Strict JSON Enforcement**: Ensures structured, reliable outputs suitable for downstream integration.
-- **Developer Debug Mode**: dedicated split-screen UI to inspect raw JSON payloads and API responses in real-time.
-- **Modern UI**: Fully responsive, dark-mode compatible interface built with vanilla CSS (no heavy frameworks).
+The application is built upon a linear execution pipeline with a conditional feedback loop:
 
-## 🏗️ Architecture
-
-The system follows a linear pipeline with a conditional feedback loop:
+1.  **Generator Agent**: Synthesizes the initial content and associated multiple-choice questions (MCQs) based on the input parameters (Grade Level and Topic).
+2.  **Reviewer Agent**: Performs a critical analysis of the generated content against predefined heuristics (Conceptual Accuracy, Clarity, Age Appropriateness).
+3.  **Refinement Loop**: If the Reviewer Agent rejects the content, the feedback is fed back into the Generator Agent for a targeted refinement pass.
+4.  **Structured Output**: All agents enforce strict JSON schemas to ensure reliable downstream consumption.
 
 ```mermaid
 graph LR
-    A[User Input] --> B[Generator Agent]
-    B --> C{Reviewer Agent}
+    A[Input] --> B[Generator]
+    B --> C{Reviewer}
     C -- Pass --> D[Final Output]
-    C -- Fail --> E[Refinement Step]
+    C -- Fail --> E[Refinement]
     E --> D
 ```
 
-### Agents
-1.  **Generator (`backend/generator.py`)**: Uses `gemini-2.0-flash` to craft educational explanations and multiple-choice questions.
-2.  **Reviewer (`backend/reviewer.py`)**: Evaluates the output against strict criteria (Conceptual Correctness, Clarity, Age Appropriateness).
+## Technical Stack
 
-## 🛠️ Technology Stack
+-   **Backend Framework**: FastAPI (Python)
+-   **LLM Provider**: Google Gemini API (gemini-2.0-flash)
+-   **Frontend**: Vanilla HTML5/CSS3/JavaScript (No external frameworks)
+-   **Deployment**: Vercel Serverless Function
 
-- **Backend**: FastAPI (Python)
-- **AI Model**: Google Gemini 2.0 Flash
-- **Frontend**: HTML5, CSS3 (Grid/Flexbox), Vanilla JavaScript
-- **Deployment**: Vercel (Serverless)
+## Features
 
-## 🚀 Getting Started
+-   **Automated Content Validation**: Multi-stage review process minimizes hallucinations and ensures quality.
+-   **Strict Schema Enforcement**: Guarantees consistent JSON structure for both content and assessment data.
+-   **Developer Inspection Tools**: Integrated split-screen debugging interface for analyzing raw JSON payloads and Reviewer feedback in real-time.
+-   **Direct-to-Backend Architecture**: Unified server handling both API routes and static asset delivery for simplified deployment.
+
+## Installation and Setup
 
 ### Prerequisites
-- Python 3.9+
-- A Google Gemini API Key
 
-### Installation
+-   Python 3.9 or higher
+-   Google Gemini API Key
 
-1.  **Clone the repository**
+### Configuration
+
+1.  **Clone the repository:**
     ```bash
     git clone https://github.com/AbhinavKumar0000/Hiring-Assigment-Eklavya.git
     cd Hiring-Assigment-Eklavya
     ```
 
-2.  **Install dependencies**
+2.  **Install dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
 
-3.  **Set up Environment Variables**
+3.  **Environment Variables:**
     Create a `.env` file in the root directory:
     ```env
-    GEMINI_API_KEY=your_api_key_here
+    GEMINI_API_KEY=your_actual_api_key
     ```
 
-4.  **Run the Application**
-    Start the unified backend server:
-    ```bash
-    python -m backend.main
-    ```
+### Execution
 
-5.  **Access the App**
-    Open your browser to: `http://localhost:8000`
-
-## 📂 Project Structure
-
-```
-├── api/                  # Vercel entrypoint
-├── backend/
-│   ├── generator.py      # LLM Content Generation Logic
-│   ├── reviewer.py       # LLM Review/Critique Logic
-│   ├── pipeline.py       # Orchestration Layer
-│   └── main.py           # FastAPI Application & Static Serving
-├── frontend/
-│   ├── index.html        # Main UI
-│   ├── style.css         # Responsive Styles
-│   └── script.js         # Frontend Logic & API Integration
-├── requirements.txt
-├── vercel.json           # Deployment Config
-└── README.md
+Start the application server:
+```bash
+python -m backend.main
 ```
 
-## 🔍 Debug Mode
+The application will be accessible at `http://localhost:8000`.
 
-The application includes a built-in **JSON Inspector**. Click the code icon (`< >`) in the top-right corner to toggle a persistent side panel. This allows specific inspection of:
-- The exact payload sent to the backend.
-- The raw JSON response from the agents (useful for seeing the Reviewer's feedback).
+## Debugging
 
-## ☁️ Deployment
+The application provides a dedicated debug interface for inspecting the internal state of the agents. Click the `< >` icon in the application header to toggle the inspection panel. This panel displays the full JSON response from the backend, including the Reviewer's critique and any refinement metadata.
 
-This project is configured for seamless deployment on **Vercel**.
+## Deployment
 
-1.  Push code to GitHub.
-2.  Import project into Vercel.
-3.  Add `GEMINI_API_KEY` to Vercel Environment Variables.
-4.  The `vercel.json` and `api/index.py` handle the rest automatically.
+The project is optimized for deployment on Vercel.
+
+1.  **Entry Point**: The application uses `api/index.py` as the Vercel entry point.
+2.  **Rewrites**: `vercel.json` maps all incoming requests to the FastAPI application.
+3.  **Environment**: Ensure `GEMINI_API_KEY` is configured in the deployment environment settings.
 
 ---
 *Built for the Eklavya Hiring Assignment.*
