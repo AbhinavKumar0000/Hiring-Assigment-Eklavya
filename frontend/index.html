@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assessment Generator</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="main-header">
+            <div class="header-content">
+                <div class="header-title">
+                    <h1>AI Assessment Generator</h1>
+                    <p>Generate educational content validated by AI agents.</p>
+                </div>
+                <button id="toggleDebug" type="button" class="icon-btn" aria-label="Toggle Debug View"
+                    title="Toggle Raw JSON">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    <span>Raw JSON</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="main-split">
+            <!-- Left Panel: Input + Results -->
+            <div class="left-panel">
+                <section class="input-section">
+                    <form id="generateForm">
+                        <div class="form-group">
+                            <label for="grade">Grade Level</label>
+                            <input type="number" id="grade" min="1" max="12" required placeholder="e.g. 5">
+                        </div>
+                        <div class="form-group">
+                            <label for="topic">Topic</label>
+                            <input type="text" id="topic" required placeholder="e.g. Photosynthesis">
+                        </div>
+                        <button type="submit" id="generateBtn">Generate Content</button>
+                    </form>
+                </section>
+
+                <section id="results" class="results-section hidden">
+                    <!-- Generator Output -->
+                    <div class="card" id="generatorCard">
+                        <div class="card-header">
+                            <h2>Generator Agent</h2>
+                            <span class="status-badge" id="genStatus">Completed</span>
+                        </div>
+                        <div class="card-content" id="generatorContent"></div>
+                    </div>
+
+                    <!-- Flow Arrow -->
+                    <div class="arrow">↓</div>
+
+                    <!-- Reviewer Output -->
+                    <div class="card" id="reviewerCard">
+                        <div class="card-header">
+                            <h2>Reviewer Agent</h2>
+                            <span class="status-badge" id="reviewStatus">Pending</span>
+                        </div>
+                        <div class="card-content" id="reviewerContent"></div>
+                    </div>
+
+                    <!-- Refined Output (Conditional) -->
+                    <div id="refinedSection" class="hidden">
+                        <div class="arrow">↓</div>
+                        <div class="card" id="refinedCard">
+                            <div class="card-header">
+                                <h2>Refined Output</h2>
+                                <span class="status-badge">Final</span>
+                            </div>
+                            <div class="card-content" id="refinedContent"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Panel: Debug / JSON (Hidden by default) -->
+            <div id="debugPanel" class="right-panel hidden">
+                <div class="sticky-debug">
+                    <h2>Debug Console</h2>
+                    <div class="json-block">
+                        <h3>Request Payload</h3>
+                        <pre><code id="jsonRequest"> Waiting for input...</code></pre>
+                    </div>
+                    <div class="json-block">
+                        <h3>Full Response</h3>
+                        <pre><code id="jsonResponse"> Waiting for generation...</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loading" class="hidden">
+            <div class="spinner"></div>
+            <p>Agents are working...</p>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>

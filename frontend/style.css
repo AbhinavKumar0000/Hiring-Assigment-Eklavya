@@ -1,0 +1,442 @@
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --background: #f8fafc;
+    --surface: #ffffff;
+    --text: #1e293b;
+    --text-light: #64748b;
+    --border: #e2e8f0;
+    --success: #10b981;
+    --error: #ef4444;
+    --warning: #f59e0b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 2rem;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+
+header p {
+    color: var(--text-light);
+}
+
+/* Input Section */
+.input-section {
+    background: var(--surface);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    margin-bottom: 3rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Results Section */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.card-header h2 {
+    font-size: 1.25rem;
+}
+
+.status-badge {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    background: var(--background);
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.status-pass {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-fail {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.mcq-item {
+    background: var(--background);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.mcq-options {
+    list-style: none;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.arrow {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--text-light);
+    margin: 1rem 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Loading */
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--border);
+    border-top: 4px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.feedback-list {
+    color: var(--error);
+    list-style-position: inside;
+}
+
+/* Layout Structure */
+/* Layout Structure */
+.app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.main-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.header-content {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-title {
+    grid-column: 2;
+    text-align: center;
+}
+
+.header-title h1 {
+    margin: 0;
+    line-height: 1.2;
+}
+
+.header-title p {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Push button to the rightmost column */
+.header-content .icon-btn {
+    grid-column: 3;
+    justify-self: end;
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header-content .icon-btn {
+        width: 100%;
+        /* Full width button on mobile */
+    }
+}
+
+.icon-btn {
+    background: rgba(37, 99, 235, 0.1);
+    /* Soft Blue */
+    color: var(--primary);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    padding: 0.5rem 1.25rem;
+    height: 40px;
+    width: auto;
+    /* Prevent stretching */
+    min-width: fit-content;
+    border-radius: 20px;
+    display: inline-flex;
+    /* Use inline-flex */
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+    /* Prevent shrinking */
+}
+
+.icon-btn:hover {
+    background: rgba(37, 99, 235, 0.2);
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+    transform: translateY(-1px);
+}
+
+.icon-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.icon-btn svg {
+    pointer-events: none;
+}
+
+.main-split {
+    display: flex;
+    gap: 2rem;
+    flex: 1;
+}
+
+.left-panel {
+    flex: 1;
+    /* Takes full width if right panel hidden */
+    min-width: 0;
+    /* Prevent flex overflow */
+}
+
+/* Right Panel (Debug) */
+.right-panel {
+    width: 400px;
+    flex-shrink: 0;
+    background: #0f172a;
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: #e2e8f0;
+    display: none;
+    /* Hidden by default */
+}
+
+.right-panel.visible {
+    display: block;
+}
+
+.sticky-debug {
+    position: sticky;
+    top: 1rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
+
+.right-panel h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #f8fafc;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 0.5rem;
+}
+
+.json-block {
+    background: #1e293b;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    border: 1px solid #334155;
+}
+
+/* Arrows */
+.arrow {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--text-light);
+    margin: 1rem 0;
+}
+
+@media (max-width: 1024px) {
+    .main-split {
+        flex-direction: column;
+    }
+
+    .right-panel {
+        width: 100%;
+        max-height: 50vh;
+    }
+}
+
+/* Controls */
+.controls-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.secondary-btn {
+    background: transparent;
+    color: var(--text-light);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+.secondary-btn:hover {
+    background: var(--background);
+    color: var(--text);
+}
+
+/* Results Grid Layout - Standard Flow */
+.results-section {
+    display: block;
+}
+
+.debug-column {
+    /* This rule is now replaced by .right-panel and .sticky-debug */
+    /* Keeping it here for reference if needed, but it's effectively unused */
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: sticky;
+    top: 2rem;
+}
+
+/* Original .json-block is now overridden by the new one */
+/* The new .json-block is defined within the new layout structure */
+/* The old one is effectively removed by the new definition */
+/* .json-block {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+} */
+
+.json-block h3 {
+    margin-bottom: 0.5rem;
+    font-size: 0.9em;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+pre {
+    margin: 0;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.8rem;
+}
